@@ -1,15 +1,16 @@
  // 百度地图API功能
-    var map = new BMap.Map("allmap");
+    var map = new BMap.Map("newsmap");
     var point = new BMap.Point(116.331398,39.897445);
-    map.centerAndZoom(point,12);
+    map.centerAndZoom(point,8);
     // 创建地址解析器实例
     var myGeo = new BMap.Geocoder();
     // 将地址解析结果显示在地图上,并调整地图视野
     myGeo.getPoint("长江扬中孢子洲", function(point){
         if (point) {
-            map.centerAndZoom(point, 16);
+            map.centerAndZoom(point, 5);
             map.addOverlay(new BMap.Marker(point));
         }else{
             alert("您选择地址没有解析到结果!");
         }
     }, "北京市");
+

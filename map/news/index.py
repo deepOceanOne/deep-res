@@ -1,6 +1,12 @@
 #encoding = utf-8
 import  requests
 import  json
+# for handle with news regex and labels 
+import scrapy
+import re
+
+# reference from https://github.com/Google1234/Information_retrieva_Projectl-/blob/master/crawl/spiders/netease_spider.py
+
 def getnews(pages):
     global newsbag
     newsbag = []
@@ -22,3 +28,11 @@ pages = int(input("want to query : "))
 getnews(pages)
 for i in newsbag:
     print(i)
+
+class neteaseSpider(scrapy.spiders.Spider):
+    def parse(self,response):
+         yield scrapy.Request(url, callback=self.parse)
+    def handlenews():
+        title=response.xpath('//head/title/text()').extract()
+        content=response.xpath('//div/p/text()').extract()
+        links=response.xpath('//a/@href').extract()
