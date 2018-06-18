@@ -2,12 +2,20 @@
 import  requests
 import  json
 # for handle with news regex and labels 
-import scrapy
+#import scrapy
 import re
+#from HTMLParser import HTMLParser
+# bs 
+#from bs4 import BeautifulSoup
+from scrapy.selector import Selector
+from scrapy.http import HtmlResponse
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf-8') 
 
 # reference from https://github.com/Google1234/Information_retrieva_Projectl-/blob/master/crawl/spiders/netease_spider.py
 
-def getnews(pages):
+def getsinanews(pages):
     global newsbag
     newsbag = []
     for page in range(1, pages + 1):
@@ -19,20 +27,33 @@ def getnews(pages):
         jd = json.loads(res.text.lstrip(' newsloadercallback(').rstrip(');'))
         diclist = jd['result']['data']
         for ent in diclist:
-            print ent
-            newsbag.append(ent['title'])
+            # print ent
+            # newsbag.append(ent['title'])
+            newsbag.append(ent['url'])
+            handlenews(ent['url'])
         continue
     return newsbag
-    
-pages = int(input("want to query : "))
-getnews(pages)
-for i in newsbag:
-    print(i)
 
-class neteaseSpider(scrapy.spiders.Spider):
-    def parse(self,response):
-         yield scrapy.Request(url, callback=self.parse)
-    def handlenews():
-        title=response.xpath('//head/title/text()').extract()
-        content=response.xpath('//div/p/text()').extract()
-        links=response.xpath('//a/@href').extract()
+def handlenews(url):
+    #response = scrapy.Request(url, callback=self.parse) Scrapy seems not to be a good choice here.#
+    body = requests.get(url).text
+    title = Selector(text=body).xpath('//head/title/text()').extract()[0].encode('ISO 8859-1')
+    #content need to be dealed with carefully
+    # content = Selector(text=body).xpath('//div[@class="article"]//p/text()').extract()[0].encode('ISO 8859-1')
+    #for selector in Selector(text=body).xpath('//div[@class="article"]//p'):
+    #    content = content + selector.xpath("/text()").extract[0].encode('ISO 8859-1')
+    content = Selector(text=body).xpath('//div[@class="article"]')
+    html = content[0].xpath('string(.)').extract()[0].encode('ISO 8859-1')
+    links = Selector(text=body).xpath('//a/@href').extract()[0].encode('ISO 8859-1')
+    print html
+
+
+
+
+# pages = int(input("want to query : "))
+pages = 1
+getsinanews(pages)
+for i in newsbag:
+    # print(i) 
+    j = i+1
+
