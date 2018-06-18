@@ -42,10 +42,19 @@ def handlenews(url):
     # content = Selector(text=body).xpath('//div[@class="article"]//p/text()').extract()[0].encode('ISO 8859-1')
     #for selector in Selector(text=body).xpath('//div[@class="article"]//p'):
     #    content = content + selector.xpath("/text()").extract[0].encode('ISO 8859-1')
-    content = Selector(text=body).xpath('//div[@class="article"]')
-    html = content[0].xpath('string(.)').extract()[0].encode('ISO 8859-1')
+    # carefully deal with encoding problems 
+    html = Selector(text=body).xpath('//div[@class="article"]')
+    content = html[0].xpath('string(.)').extract()[0].encode('ISO 8859-1')
     links = Selector(text=body).xpath('//a/@href').extract()[0].encode('ISO 8859-1')
-    print html
+    NER_URL = 'http://api.bosonnlp.com/ner/analysis'
+    data = json.dumps(content)
+    headers = {'X-Token': 'bosonnlp的API'}
+    resp = requests.post(NER_URL, headers=headers, data=data.encode('utf-8'))
+    for item in resp.json():
+        for entity in item['entity']:
+            if entity[2] == "location":
+                print(''.join(item['word'][entity[0]:entity[1]]), entity[2])
+    #print html
 
 
 
