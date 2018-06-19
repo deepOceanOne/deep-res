@@ -9,11 +9,10 @@ import re
 #from bs4 import BeautifulSoup
 from scrapy.selector import Selector
 from scrapy.http import HtmlResponse
-import sys  
-reload(sys)  
-sys.setdefaultencoding('utf-8') 
+
 
 # reference from https://github.com/Google1234/Information_retrieva_Projectl-/blob/master/crawl/spiders/netease_spider.py
+#using python3 
 
 def getsinanews(pages):
     global newsbag
@@ -30,39 +29,61 @@ def getsinanews(pages):
             # print ent
             # newsbag.append(ent['title'])
             newsbag.append(ent['url'])
-            handlenews(ent['url'])
+            # print (ent['url'])
+            handlesinanews(ent['url'])
         continue
     return newsbag
 
-def handlenews(url):
+def handlesinanews(url):
     #response = scrapy.Request(url, callback=self.parse) Scrapy seems not to be a good choice here.#
     body = requests.get(url).text
-    title = Selector(text=body).xpath('//head/title/text()').extract()[0].encode('ISO 8859-1')
+    title = Selector(text=body).xpath('//head/title/text()').extract()[0]
     #content need to be dealed with carefully
     # content = Selector(text=body).xpath('//div[@class="article"]//p/text()').extract()[0].encode('ISO 8859-1')
     #for selector in Selector(text=body).xpath('//div[@class="article"]//p'):
     #    content = content + selector.xpath("/text()").extract[0].encode('ISO 8859-1')
     # carefully deal with encoding problems 
     html = Selector(text=body).xpath('//div[@class="article"]')
-    content = html[0].xpath('string(.)').extract()[0].encode('ISO 8859-1')
-    links = Selector(text=body).xpath('//a/@href').extract()[0].encode('ISO 8859-1')
+    content = html[0].xpath('string(.)').extract()[0]
+    links = Selector(text=body).xpath('//a/@href').extract()[0]
     NER_URL = 'http://api.bosonnlp.com/ner/analysis'
-    data = json.dumps(content)
-    headers = {'X-Token': 'bosonnlp的API'}
-    resp = requests.post(NER_URL, headers=headers, data=data.encode('utf-8'))
+    # f = open('json/data.txt', 'a',encoding='utf-8')
+    # f.write(content)
+    data = json.dumps(content,ensure_ascii=False)
+    headers = {'X-Token': 'bosonnlp API'}
+    resp = requests.post(NER_URL, headers=headers, data=data)
     for item in resp.json():
-        for entity in item['entity']:
-            if entity[2] == "location":
-                print(''.join(item['word'][entity[0]:entity[1]]), entity[2])
-    #print html
+        if type(item) == type({}):   # check if successfully return value
+            for entity in item['entity']:
+                if entity[2] == "location" and (entity[1]-entity[0]) > 5:
+                    print(''.join(item['word'][entity[0]:entity[1]]), entity[2])
+
+def get163news():
+    global newsbag
+    newsbag = []
+    raw_url = 'http://news.163.com/shehui/'
+    res = requests.get(raw_url)
+    jd = json.loads(res.text.lstrip(' newsloadercallback(').rstrip(');'))
 
 
-
+def handle163news(url):
+    with open('json/news.json') as file_object:
+        content = file_object.read()
+    NER_URL = 'http://api.bosonnlp.com/ner/analysis'
+    # f = open('json/data.txt', 'a',encoding='utf-8')
+    # f.write(content)
+    data = json.dumps(content,ensure_ascii=False)
+    headers = {'X-Token': 'bosonnlp API'}
+    resp = requests.post(NER_URL, headers=headers, data=data)
+    for item in resp.json():
+        if type(item) == type({}):   # check if successfully return value
+            for entity in item['entity']:
+                if entity[2] == "location" :
+                    print(''.join(item['word'][entity[0]:entity[1]]), entity[2])    
 
 # pages = int(input("want to query : "))
-pages = 1
-getsinanews(pages)
-for i in newsbag:
-    # print(i) 
-    j = i+1
+pages = 9
+# getsinanews(pages)
+handle163news("ddd")
+
 
