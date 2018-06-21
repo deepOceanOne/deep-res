@@ -42,6 +42,21 @@ var titlearray = ["高雄小港机场外海西侧44海里处 "
 ,"酒泉卫星发射中心雷达测量站 "
 , ]  
 
+
+    // 基于地理位置的地图应用
+    /*
+    var geolocation = new BMap.Geolocation();
+    // 开启SDK辅助定位
+    function myFun(result){
+    var cityName = result.name;
+    map.setCenter(cityName);
+     // alert("当前定位城市:"+cityName);
+    }
+    var myCity = new BMap.LocalCity();
+    myCity.get(myFun); 
+    */
+
+
     var pointarray = new Array(locarray.length);
     
     // 将地址解析结果显示在地图上,并调整地图视野
