@@ -20,6 +20,7 @@ import os
 CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis'
 headers = {'X-Token': os.environ['BOSON_API']}
 datafilter = json.dumps("去年中央三公经费支出43.6亿元 公车支出减少")
+# datafilter = json.dumps("特朗普下月访英或见女王 美国大使:这是他的工作")
 newsfilter = requests.post(CLASSIFY_URL, headers=headers, data=datafilter.encode('utf-8'))
 # end of filter data make 
 
@@ -76,6 +77,7 @@ def handlesinanews(url):
             if type(item) == type({}):   # check if successfully return value
                 for entity in item['entity']:
                     if entity[2] == "location" and (entity[1]-entity[0]) > 5:
+                        print('新闻标题:): '.join(title),'"')
                         print(''.join(item['word'][entity[0]:entity[1]]),'"')
                         print(''.join(url),'"')
 
