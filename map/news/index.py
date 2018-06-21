@@ -9,10 +9,19 @@ import re
 #from bs4 import BeautifulSoup
 from scrapy.selector import Selector
 from scrapy.http import HtmlResponse
+import os 
+
 
 
 # reference from https://github.com/Google1234/Information_retrieva_Projectl-/blob/master/crawl/spiders/netease_spider.py
 #using python3 
+
+#filter data make 
+CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis'
+headers = {'X-Token': os.environ['BOSON_API']}
+datafilter = json.dumps("去年中央三公经费支出43.6亿元 公车支出减少")
+newsfilter = requests.post(CLASSIFY_URL, headers=headers, data=datafilter.encode('utf-8'))
+# end of filter data make 
 
 def getsinanews(pages):
     global newsbag
@@ -49,14 +58,27 @@ def handlesinanews(url):
     NER_URL = 'http://api.bosonnlp.com/ner/analysis'
     # f = open('json/data.txt', 'a',encoding='utf-8')
     # f.write(content)
-    data = json.dumps(content,ensure_ascii=False)
-    headers = {'X-Token': 'bosonnlp API'}
-    resp = requests.post(NER_URL, headers=headers, data=data)
-    for item in resp.json():
-        if type(item) == type({}):   # check if successfully return value
-            for entity in item['entity']:
-                if entity[2] == "location" and (entity[1]-entity[0]) > 5:
-                    print(''.join(item['word'][entity[0]:entity[1]]), entity[2])
+    # make a classify 
+    CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis'
+    data = json.dumps(title)
+    headers = {'X-Token': os.environ['BOSON_API']}
+    resp = requests.post(CLASSIFY_URL, headers=headers, data=data.encode('utf-8'))
+    #print(resp.text)
+    #print(url)
+    # only get news inside country
+    if resp.text == newsfilter.text :
+        # print("pass")
+        # extract the location out from the news content
+        data = json.dumps(content,ensure_ascii=False)
+        headers = {'X-Token': os.environ['BOSON_API']}
+        resp = requests.post(NER_URL, headers=headers, data=data)
+        for item in resp.json():
+            if type(item) == type({}):   # check if successfully return value
+                for entity in item['entity']:
+                    if entity[2] == "location" and (entity[1]-entity[0]) > 5:
+                        print(''.join(item['word'][entity[0]:entity[1]]),'"')
+                        print(''.join(url),'"')
+
 
 def get163news():
     global newsbag
@@ -83,7 +105,7 @@ def handle163news(url):
 
 # pages = int(input("want to query : "))
 pages = 9
-# getsinanews(pages)
-handle163news("ddd")
+getsinanews(pages)
+
 
 
