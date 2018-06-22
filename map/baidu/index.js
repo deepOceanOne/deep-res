@@ -19,28 +19,24 @@
     // 载入json新闻数据?
     // 使用数组形式，由python代码产生此格式数组
 
-
-var locarray = ["高雄小港机场外海西侧44海里处 "
-,"澎湖马公西南5海里处 "
-,"达州市通川区塔石路塔沱市场负一楼 "
-,"海南三亚南偏东770公里 "
-,"大理线秭归K460+000路段 "
-,"酒泉卫星发射中心雷达测量站 "
+var locarray = ["新闻标题:): 知乎工作地点"
+,"北京市海淀区学院路甲 5 号 768 创意园 A 座 / B 座  "
+,"新闻标题:): 知乎工作地点"
+,"上海市徐汇区永嘉路 570 号 "
+,"新闻标题:): 知乎工作地点"
+,"广州市天河区体育东路 136 号金利来数码网络大厦 "
+,"新闻标题:): 知乎工作地点"
+,"四川省成都天府新区天府大道南段 888 号广都智库 "
 , ]  
-  var newsarray = [ "http://news.sina.com.cn/c/gat/2018-06-04/doc-ihcmurvh6353863.shtml "
-,"http://news.sina.com.cn/c/gat/2018-06-04/doc-ihcmurvh6353863.shtml "
-,"http://news.sina.com.cn/c/nd/2018-06-03/doc-ihcmurvh0788283.shtml "
-,"http://news.sina.com.cn/c/nd/2018-06-02/doc-ihcikcew8622131.shtml "
-,"http://news.sina.com.cn/c/nd/2018-06-02/doc-ihcikcew7790227.shtml "
-,"http://news.sina.com.cn/c/nd/2018-06-02/doc-ihcikcew7493002.shtml ", ] 
-
-var titlearray = ["高雄小港机场外海西侧44海里处 "
-,"澎湖马公西南5海里处 "
-,"达州市通川区塔石路塔沱市场负一楼 "
-,"海南三亚南偏东770公里 "
-,"大理线秭归K460+000路段 "
-,"酒泉卫星发射中心雷达测量站 "
-, ]  
+  var newsarray = [ "https://app.mokahr.com/apply/zhihu  "
+,"https://app.mokahr.com/apply/zhihu  "
+,"https://app.mokahr.com/apply/zhihu "
+,"https://app.mokahr.com/apply/zhihu   ", ]  
+  var titlearray = [ "新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+, ] 
 
 
     // 基于地理位置的地图应用

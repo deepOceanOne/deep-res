@@ -1,4 +1,4 @@
-#encoding = utf-8
+#coding=utf-8
 import  requests
 import  json
 # for handle with news regex and labels 
@@ -48,6 +48,8 @@ def handlesinanews(url):
     #response = scrapy.Request(url, callback=self.parse) Scrapy seems not to be a good choice here.#
     body = requests.get(url).text
     title = Selector(text=body).xpath('//head/title/text()').extract()[0]
+    title_print = title.encode("unicode-escape")
+    print(title_print)
     #content need to be dealed with carefully
     # content = Selector(text=body).xpath('//div[@class="article"]//p/text()').extract()[0].encode('ISO 8859-1')
     #for selector in Selector(text=body).xpath('//div[@class="article"]//p'):
@@ -62,6 +64,7 @@ def handlesinanews(url):
     # make a classify 
     CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis'
     data = json.dumps(title)
+    # print(data.encode('utf-8'))
     headers = {'X-Token': os.environ['BOSON_API']}
     resp = requests.post(CLASSIFY_URL, headers=headers, data=data.encode('utf-8'))
     #print(resp.text)
@@ -77,7 +80,7 @@ def handlesinanews(url):
             if type(item) == type({}):   # check if successfully return value
                 for entity in item['entity']:
                     if entity[2] == "location" and (entity[1]-entity[0]) > 5:
-                        print('新闻标题:): '.join(title),'"')
+                        print(''.join("新闻标题:): "+title),'"')
                         print(''.join(item['word'][entity[0]:entity[1]]),'"')
                         print(''.join(url),'"')
 
