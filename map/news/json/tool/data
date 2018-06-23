@@ -1,0 +1,18 @@
+var locarray = ["新闻标题:): 知乎工作地点"
+,"北京市海淀区学院路甲 5 号 768 创意园 A 座 / B 座  "
+,"新闻标题:): 知乎工作地点"
+,"上海市徐汇区永嘉路 570 号 "
+,"新闻标题:): 知乎工作地点"
+,"广州市天河区体育东路 136 号金利来数码网络大厦 "
+,"新闻标题:): 知乎工作地点"
+,"四川省成都天府新区天府大道南段 888 号广都智库 "
+, ]  
+  var newsarray = [ "https://app.mokahr.com/apply/zhihu  "
+,"https://app.mokahr.com/apply/zhihu  "
+,"https://app.mokahr.com/apply/zhihu "
+,"https://app.mokahr.com/apply/zhihu   ", ]  
+  var titlearray = [ "新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+,"新闻标题:): 知乎工作地点"
+, ] 

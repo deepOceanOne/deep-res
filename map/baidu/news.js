@@ -60,17 +60,21 @@ var locarray = ["新闻标题:): 知乎工作地点"
         myGeo.getPoint(item, function(point){
         if (point) {
             map.centerAndZoom(point, 5);
-            var marker = new BMap.Marker(point);  // 创建标注
+            var marker = new BMap.Marker(new BMap.Point(113.53573055555556,22.1806));  // 创建标注
             map.addOverlay(marker);
             marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
             var title = titlearray[locarray.indexOf(item)];
-            var sContent = "<div class='BMap_bubble_title' style='overflow: hidden; height: auto; line-height: 24px; width: auto;''>"+
+            var textwithlinkContent = "<div class='BMap_bubble_title' style='overflow: hidden; height: auto; line-height: 24px; width: auto;''>"+
                             "<p style='width:210px;font:bold 14px/16px arial,sans-serif;margin:5px;color:#cc5522;white-space:normal;overflow:hidden' title='aa'>"+
                             title+"<a target='_blank' href='"+
                             newsarray[locarray.indexOf(item)]+
                             "' style='margin-right:5px;font-size:12px;color:#3d6dcc;font-weight:normal;text-decoration:none;'>"+
                             "详情»"+"</a></p></div>"
-            var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+            var picContent = "<div class='BMap_bubble_title' style='overflow: hidden; height: auto; line-height: 24px; width: auto;''>"+
+            "<img style='float:right;margin:4px' id='imgDemo' src='https://ws2.sinaimg.cn/large/006tNc79gy1fskvdloac0j31kw0w0dqj.jpg' swidth='139' height='104' title='天安门'/>"+
+            "</div>";
+
+            var infoWindow = new BMap.InfoWindow(textwithlinkContent);  // 创建信息窗口对象
             marker.addEventListener("click", function(){          
                  map.openInfoWindow(infoWindow,point); //开启信息窗口
                 // window.location = newsarray[locarray.indexOf(item)];
