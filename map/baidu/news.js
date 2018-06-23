@@ -19,25 +19,32 @@
     // 载入json新闻数据?
     // 使用数组形式，由python代码产生此格式数组
 
-var locarray = ["新闻标题:): 知乎工作地点"
-,"北京市海淀区学院路甲 5 号 768 创意园 A 座 / B 座  "
-,"新闻标题:): 知乎工作地点"
-,"上海市徐汇区永嘉路 570 号 "
-,"新闻标题:): 知乎工作地点"
-,"广州市天河区体育东路 136 号金利来数码网络大厦 "
-,"新闻标题:): 知乎工作地点"
-,"四川省成都天府新区天府大道南段 888 号广都智库 "
+var locarray = ["新闻标题:): äºåæ¯è°·åçæ³¥ç³æµç¾å®³ ç´§æ¥è½¬ç§»97äºº(å¾)|äºå|æ¯è°·|æ³¥ç³æµ_æ°æµªæ°é» "
+,"凤山镇平寨村那肖田村民小组 "
+,"新闻标题:): åäº¬å¸åæ¹å§:é¦é½âå¤§ä¸ç¯âæ¬æåºå·å¤éè½¦æ¡ä»¶|åæ¹å§|äº¬æ´¥å|é¦é½_æ°æµªæ°é» "
+,"北京市大兴区采育镇韩营村南侧市界 "
+,"新闻标题:): åäº¬å¸åæ¹å§:é¦é½âå¤§ä¸ç¯âæ¬æåºå·å¤éè½¦æ¡ä»¶|åæ¹å§|äº¬æ´¥å|é¦é½_æ°æµªæ°é» "
+,"北京市通州区西集镇赵庄村北侧市界 "
+,"新闻标题:): åå¼ºéé¨å½±å 210å½éæ±ä¸­æ®µ3000æ¹å¬è·¯æ¤å¡å®å¡|æ¤å¡|æ±ä¸­|å½é_æ°æµªæ°é» "
+,"汉中市公路局镇巴公路段 "
+,"新闻标题:): ä¸­å½åæåè¢«ç¯ä¸?ååæåé±åå°é£é©åºè­¦æ|åæ|åæå¯¼èª|äº§ä¸å­_æ°æµªæ°é» "
+,"两江新区水土高新园云汉大道277号的产业园 "
+,"新闻标题:): æ¹åä¸è¯åæ³æ¼å«ç¡«æ°ä½ 63äººèµ´å»æå­©å­èºé¨ææ|ç¾è±æ|ä¸æ|è¯ä¸_æ°æµªæ°é» "
+,"黄石市大冶市汪仁镇黄金山开发区百花村 "
 , ]  
-  var newsarray = [ "https://app.mokahr.com/apply/zhihu  "
-,"https://app.mokahr.com/apply/zhihu  "
-,"https://app.mokahr.com/apply/zhihu "
-,"https://app.mokahr.com/apply/zhihu   ", ]  
-  var titlearray = [ "新闻标题:): 知乎工作地点"
-,"新闻标题:): 知乎工作地点"
-,"新闻标题:): 知乎工作地点"
-,"新闻标题:): 知乎工作地点"
+  var newsarray = [ "http://news.sina.com.cn/c/nd/2018-06-20/doc-ihefphqk4312753.shtml "
+,"http://news.sina.com.cn/o/2018-06-20/doc-ihefphqk2710207.shtml "
+,"http://news.sina.com.cn/o/2018-06-20/doc-ihefphqk2710207.shtml "
+,"http://news.sina.com.cn/c/nd/2018-06-20/doc-ihefphqk2306345.shtml "
+,"http://news.sina.com.cn/c/nd/2018-06-15/doc-ihcyszrz4061710.shtml "
+,"http://news.sina.com.cn/c/nd/2018-06-14/doc-ihcwpcmq5458403.shtml ", ]  
+  var titlearray = [ "新闻标题:): äºåæ¯è°·åçæ³¥ç³æµç¾å®³ ç´§æ¥è½¬ç§»97äºº(å¾)|äºå|æ¯è°·|æ³¥ç³æµ_æ°æµªæ°é» "
+,"新闻标题:): åäº¬å¸åæ¹å§:é¦é½âå¤§ä¸ç¯âæ¬æåºå·å¤éè½¦æ¡ä»¶|åæ¹å§|äº¬æ´¥å|é¦é½_æ°æµªæ°é» "
+,"新闻标题:): åäº¬å¸åæ¹å§:é¦é½âå¤§ä¸ç¯âæ¬æåºå·å¤éè½¦æ¡ä»¶|åæ¹å§|äº¬æ´¥å|é¦é½_æ°æµªæ°é» "
+,"新闻标题:): åå¼ºéé¨å½±å 210å½éæ±ä¸­æ®µ3000æ¹å¬è·¯æ¤å¡å®å¡|æ¤å¡|æ±ä¸­|å½é_æ°æµªæ°é» "
+,"新闻标题:): ä¸­å½åæåè¢«ç¯ä¸?ååæåé±åå°é£é©åºè­¦æ|åæ|åæå¯¼èª|äº§ä¸å­_æ°æµªæ°é» "
+,"新闻标题:): æ¹åä¸è¯åæ³æ¼å«ç¡«æ°ä½ 63äººèµ´å»æå­©å­èºé¨ææ|ç¾è±æ|ä¸æ|è¯ä¸_æ°æµªæ°é» "
 , ] 
-
 
     // 基于地理位置的地图应用
     /*
@@ -60,7 +67,7 @@ var locarray = ["新闻标题:): 知乎工作地点"
         myGeo.getPoint(item, function(point){
         if (point) {
             map.centerAndZoom(point, 5);
-            var marker = new BMap.Marker(new BMap.Point(113.53573055555556,22.1806));  // 创建标注
+            var marker = new BMap.Marker(point);  // 创建标注
             map.addOverlay(marker);
             marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
             var title = titlearray[locarray.indexOf(item)];
@@ -70,9 +77,6 @@ var locarray = ["新闻标题:): 知乎工作地点"
                             newsarray[locarray.indexOf(item)]+
                             "' style='margin-right:5px;font-size:12px;color:#3d6dcc;font-weight:normal;text-decoration:none;'>"+
                             "详情»"+"</a></p></div>"
-            var picContent = "<div class='BMap_bubble_title' style='overflow: hidden; height: auto; line-height: 24px; width: auto;''>"+
-            "<img style='float:right;margin:4px' id='imgDemo' src='https://ws2.sinaimg.cn/large/006tNc79gy1fskvdloac0j31kw0w0dqj.jpg' swidth='139' height='104' title='天安门'/>"+
-            "</div>";
 
             var infoWindow = new BMap.InfoWindow(textwithlinkContent);  // 创建信息窗口对象
             marker.addEventListener("click", function(){          
