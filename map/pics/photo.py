@@ -83,12 +83,14 @@ def upload_pic(pic_path):
     ret, info = put_file(token, key, localfile)
     print(info)
 
+'''
 img_dir = './data'
 for file in os.listdir(img_dir):
     if file.endswith(".jpg"):
         img_name = file
         # GPS_info = find_GPS_image(pic_path="https://ws2.sinaimg.cn/large/006tNc79gy1fskw4hn2bqj31kw11x4qp.jpg")
         # print(GPS_info)
+'''
 
 GPS_info = find_GPS_image(pic_path='IMG_0708.JPG')
 # address = find_address_from_GPS_and_upload_pic(GPS=GPS_info) 

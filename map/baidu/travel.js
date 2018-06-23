@@ -58,7 +58,20 @@ var locarray = ["广东省珠海市香洲区会展二路 "
     var myCity = new BMap.LocalCity();
     myCity.get(myFun); 
     */
-  var pointarray = new Array(locarray.length);
+
+    // 添加点击上传图片的功能
+    fileElem = document.getElementById("add_file");
+    map.addEventListener("click",function(e){
+        var lng = e.point.lng;
+        var lat = e.point.lat;
+         if (fileElem) {
+            fileElem.click();
+         }
+        // alert(e.point.lng + "," + e.point.lat);
+    });
+
+
+    var pointarray = new Array(locarray.length);
     
     // 将地址解析结果显示在地图上,并调整地图视野
     locarray.forEach(function(item){

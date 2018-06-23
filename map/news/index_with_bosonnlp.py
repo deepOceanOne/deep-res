@@ -22,7 +22,7 @@ CLASSIFY_URL = 'http://api.bosonnlp.com/classify/analysis'
 headers = {'X-Token': os.environ['BOSON_API']}
 # url2io
 token = os.environ['URL2IO_API']
-fields = ','.join(['next',])
+fields = ','.join(['text',])
 datafilter = json.dumps("去年中央三公经费支出43.6亿元 公车支出减少")
 # datafilter = json.dumps("特朗普下月访英或见女王 美国大使:这是他的工作")
 newsfilter = requests.post(CLASSIFY_URL, headers=headers, data=datafilter.encode('utf-8'))
@@ -55,7 +55,12 @@ def handlesinanews(url):
     q = {'token': token, 'url': url, 'fields': fields}
     result = requests.get('http://api.url2io.com/article', params=q)
     # this title is only for print 
-    title_print = result.json()['title']
+    # print(url)
+    ret = result.text
+    if 'title' in ret :
+        title_print = ret[ret.index("title"):]
+    else :
+        title_print = ''
     # title_print = title.encode("unicode-escape")
     # print(title_print)
     #content need to be dealed with carefully
