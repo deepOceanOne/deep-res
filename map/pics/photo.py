@@ -58,6 +58,7 @@ def find_address_from_GPS(GPS):
     """
     secret_key = "327GGLm6A62GfdvGy3L48b6P1clK2QRe"
     if not GPS['GPS_information']:
+
         return '该照片无GPS信息'
     lat, lng = GPS['GPS_information']['GPSLatitude'], GPS['GPS_information']['GPSLongitude']
     baidu_map_api = "http://api.map.baidu.com/geocoder/v2/?ak={0}&callback=renderReverse&location={1},{2}s&output=json&pois=0".format(
@@ -71,6 +72,11 @@ def find_address_from_GPS(GPS):
     # district = baidu_map_address["result"]["addressComponent"]["district"]
     # upload the image then 
     return formatted_address
+
+def decide_if_remove_pic(GPS,picpath):
+    pic_with_gps = find_GPS_image(picpath)
+    if not pic_with_gps['GPS_information']:
+        os.remove(picpath)
 
 def upload_pic(pic_path):
     access_key = os.environ['QINIU_AK_API']
@@ -92,8 +98,9 @@ for file in os.listdir(img_dir):
         # print(GPS_info)
 '''
 
+
 GPS_info = find_GPS_image(pic_path='IMG_0708.JPG')
-# address = find_address_from_GPS_and_upload_pic(GPS=GPS_info) 
-print(GPS_info)
+address = find_address_from_GPS(GPS=GPS_info) 
+print(address)
 
 
