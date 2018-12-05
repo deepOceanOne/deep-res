@@ -1,0 +1,23 @@
+NSString *httpUrl = @"http://apis.baidu.com/weixinxi/extracter/extracter";
+NSString *httpArg = @"url=http%3A%2F%2Fwww.weixinxi.wang%2Fblog%2Faitrcle.html%3Fid%3D90";
+[self request: httpUrl withHttpArg: httpArg];
+
+-(void)request: (NSString*)httpUrl withHttpArg: (NSString*)HttpArg  {
+    NSString *urlStr = [[NSString alloc]initWithFormat: @"%@?%@", httpUrl, HttpArg];
+    NSURL *url = [NSURL URLWithString: urlStr];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url cachePolicy: NSURLRequestUseProtocolCachePolicy timeoutInterval: 10];
+    [request setHTTPMethod: @"GET"];
+    [request addValue: @"您自己的apikey" forHTTPHeaderField: @"apikey"];
+    [NSURLConnection sendAsynchronousRequest: request
+        queue: [NSOperationQueue mainQueue]
+        completionHandler: ^(NSURLResponse *response, NSData *data, NSError *error){
+            if (error) {
+                NSLog(@"Httperror: %@%ld", error.localizedDescription, error.code);
+            } else {
+                NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
+                NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"HttpResponseCode:%ld", responseCode);
+                NSLog(@"HttpResponseBody %@",responseString);
+            }
+        }];
+}

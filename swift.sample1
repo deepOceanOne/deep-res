@@ -1,0 +1,21 @@
+var url = "http://apis.baidu.com/weixinxi/extracter/extracter"
+var httpArg = "url=http%3A%2F%2Fwww.weixinxi.wang%2Fblog%2Faitrcle.html%3Fid%3D90"
+request(url, httpArg: httpArg)
+func  request(httpUrl: String, httpArg: String) {
+    var req = NSMutableURLRequest(URL: NSURL(string: httpUrl + "?" + httpArg)!)
+    req.timeoutInterval = 6
+    req.HTTPMethod = "GET"
+    req.addValue("您自己的apikey", forHTTPHeaderField: "apikey")
+    NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue.mainQueue()) {
+        (response, data, error) -> Void in
+        let res = response as! NSHTTPURLResponse
+        println(res.statusCode)
+        if let e = error{
+            println("请求失败")
+        }
+        if let d = data {
+            var content = NSString(data: d, encoding: NSUTF8StringEncoding)
+            println(content)
+        }
+    }
+}
